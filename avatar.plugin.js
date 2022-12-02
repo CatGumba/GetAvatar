@@ -1,8 +1,8 @@
 /**
- * @name GetAvatar
+ * @name Avatar Button
  * @author CatGumba
- * @description Type .avatar to get the Profile Picture of the person you're talking to!
- * @version 0.0.1
+ * @description Go to someones profile and click "Get Avatar" to open their Avatar in your default Webbrowser
+ * @version 0.1.0
  */
 var main;
 
@@ -10,35 +10,18 @@ var main;
   load() {}    
   
   start() {
-    BdApi.showToast('GetAvatar enabled')
-    let tr1 = true
-    let avatar
+    let trg1 = false
     main = setInterval(function() {
-    try{
-      avatar = document.getElementsByClassName("interactiveSelected-29CP8y")[0].getElementsByClassName("avatar-b5OQ1N")[0].src
-      avatar = avatar.replace('size=48', 'size=1024')
-    } catch{
-      avatar = null
-    }
-    let a = document.querySelector("span[data-slate-string]");
-    if(a!=null||a!=undefined){
-      var UserTyping= a.textContent
-      if(UserTyping!=undefined){
-        if(UserTyping.startsWith(".avatar")){
-          if(tr1 == true){
-            if(avatar!=null){
-              window.open(avatar, '_blank');
-              BdApi.showToast("Opened Avatar")
-            }else{BdApi.showToast("No Avatar to open")}
-          }
-          tr1 = false
-        }else{
-          tr1 = true
+      let btn = document.getElementsByClassName('relationshipButtons-pZ_UWl')[0]
+      if(btn != undefined) {
+        if(trg1 == false){
+          let avatar = document.getElementsByClassName('focusLock-2tveLW')[0].getElementsByClassName('avatar-b5OQ1N')[0].src
+          btn.insertAdjacentHTML('beforebegin', '<button type="button" class="actionButton-D1ZvXj button-f2h6uQ lookFilled-yCfaCM colorGreen-3y-Z79 sizeSmall-wU2dO- grow-2sR_-F" id="avatarlisten" style="margin-left: auto; margin-right: 6px;"><div class="contents-3ca1mk">Get Avatar</div></button>')
+          document.getElementById("avatarlisten").addEventListener("click", function() {window.open(avatar, "_blank");BdApi.showToast('Opened Avatar')})
+          trg1 = true
         }
-      }
-    }
-
-  }, 300)
-}
+      }else{trg1 = false}
+    }, 200)
+  }
   stop() {clearInterval(main)}
 }
